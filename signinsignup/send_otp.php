@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
             try {
                 // SMTP server settings
                 $mail->isSMTP();
-                $mail->Host       = 'smtp.gmail.com';
+                $mail->Host       = 'smtp.mail.com';
                 $mail->SMTPAuth   = true;
                 $mail->Username   = 'your email';
                 $mail->Password   = 'your key'; // Replace with your actual SMTP password
