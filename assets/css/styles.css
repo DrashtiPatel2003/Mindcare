@@ -1,0 +1,277 @@
+/* Keyframe Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff8f6;
+  overflow-x: hidden;
+  animation: fadeIn 1s ease-in;
+}
+
+/* Logo Styling */
+.logo {
+  display: contents;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 1s ease-out;
+}
+
+.logo-img {
+  width: 150%;         /* Responsive size */
+  max-width: 200px;     /* Maximum size */
+  height: auto;         /* Maintain aspect ratio */
+  object-fit: contain;  /* Ensures the logo fits inside the container */
+  animation: fadeIn 1s ease-out;
+}
+
+/* Header Navigation */
+header nav {
+  background: #f9c0d794; /* Pastel pink background */
+  color: #4a4a4a;        /* Dark gray text */
+  display: flex;
+  padding: 10px;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  animation: slideInUp 0.5s ease-out;
+}
+
+header nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+header nav ul li {
+  margin: 0 15px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+header nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+header nav ul li a:hover {
+  background-color: #d3a4c1;
+  transform: scale(1.05);
+}
+
+/* Alternate Navbar Styles (if used outside header) */
+nav ul {
+  list-style: none;
+  display: flex;
+}
+
+nav ul li {
+  margin: 0 1rem;
+}
+
+nav ul li a {
+  color: #4a4a4a;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #e63946;
+}
+
+/* Navbar Buttons */
+.nav-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-btn {
+  padding: 10px 15px;
+  background-color: #000; /* Dark for Sign In */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-btn:hover {
+  background-color: #ff9d9d;
+  transform: scale(1.05);
+}
+
+.profile-icon {
+  margin-left: 10px;
+  text-decoration: none;
+}
+
+.profile-img {
+  height: 24px;
+  width: auto;
+  vertical-align: middle;
+}
+
+/* Hero Section */
+.hero {
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  position: relative;
+  height: 100vh;
+  animation: fadeIn 1s ease-in;
+}
+
+.hero-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.herotext {
+  text-align: center;
+  color: white;
+  z-index: 1;
+  padding: 20px;
+  animation: slideInUp 1s ease-out;
+}
+
+.herotext h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.herotext p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  line-height: 1.6;
+  text-shadow: 2px 2px 5px rgba(84, 68, 68, 0.7);
+}
+
+/* Call-to-Action Button */
+.cta-btn {
+  background-color: #ff80b3; /* Light pastel pink */
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+}
+
+.cta-btn:hover {
+  background-color: #ff4d94;
+  transform: scale(1.05);
+}
+
+/* About, Services, & Contact Sections */
+.about-section,
+.services-section,
+.contact-section {
+  padding: 4rem 2rem;
+  text-align: center;
+  animation: fadeIn 1s ease-in;
+}
+
+.about-section h2,
+.services-section h2,
+.contact-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.service {
+  margin: 1rem 0;
+}
+
+/* Contact Hero */
+.contact-hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  animation: slideInUp 1s ease-out;
+}
+
+.contact-hero h1 {
+  font-size: 3rem;
+}
+
+/* Contact Section Form */
+.contact-section form {
+  max-width: 600px;
+  margin: 0 auto;
+  animation: fadeIn 1s ease-in;
+}
+
+form input,
+form textarea,
+form button {
+  width: 100%;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  animation: fadeIn 1s ease-in;
+}
+
+form button {
+  background: #f8d7e3;
+  color: #4a4a4a;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+form button:hover {
+  background: #e63946;
+  color: white;
+}
+
+/* Mental Health Section */
+.mental-health-section {
+  position: relative;
+  padding: 20px;
+  background-color: #fff6f6;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1s ease-in;
+}
+
+.mental-health-section h2 {
+  font-size: 1.8rem;
+  color: #16202A;
+  margin-bottom: 20px;
+}

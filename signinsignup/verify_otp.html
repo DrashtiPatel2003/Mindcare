@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Verify OTP</title>
+    <style>
+  /* --- Enhanced CSS styling for the OTP popup --- */
+body {
+    font-family: 'Roboto', sans-serif;
+    /* Vibrant background gradient */
+    background: linear-gradient(135deg, #f8cdda, #f1a5de);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.35);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.otp-popup {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 2.5rem 3rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    width: 500px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.3s ease-in-out;
+}
+
+.otp-popup.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+h2 {
+    color: #e65b9f;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Container for the OTP input fields */
+.otp-fields {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.otp-field {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 1.6rem;
+    border: 2px solid #e65b9f;
+    border-radius: 10px;
+    background-color: #fce3ec;
+    transition: all 0.3s ease;
+}
+
+.otp-field:focus {
+    border-color: #e65b9f;
+    outline: none;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(230, 91, 159, 0.5);
+}
+
+/* Container to center the button */
+.button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    background-color: #e65b9f;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #d14c8b;
+    transform: scale(1.05);
+}
+
+    </style>
+</head>
+<body>
+    <!-- OTP Popup -->
+    <div class="overlay" id="otp-overlay"></div>
+    <div class="otp-popup" id="otp-popup">
+        <h2>Enter OTP</h2>
+        <form id="otp-form" method="POST" action="verify_otp.php">
+            <input type="text" maxlength="1" id="otp1" name="otp1" class="otp-field" required autocomplete="off" inputmode="numeric">
+            <input type="text" maxlength="1" id="otp2" name="otp2" class="otp-field" required autocomplete="off" inputmode="numeric">
+            <input type="text" maxlength="1" id="otp3" name="otp3" class="otp-field" required autocomplete="off" inputmode="numeric">
+            <input type="text" maxlength="1" id="otp4" name="otp4" class="otp-field" required autocomplete="off" inputmode="numeric">
+            <input type="text" maxlength="1" id="otp5" name="otp5" class="otp-field" required autocomplete="off" inputmode="numeric">
+            <input type="text" maxlength="1" id="otp6" name="otp6" class="otp-field" required autocomplete="off" inputmode="numeric">
+            <!-- Optional: hidden field for email if needed -->
+            <input type="hidden" id="email" name="email" value="">
+            <br>
+            <br>
+            <div class="button-container">
+                <button type="submit">Verify OTP</button>
+            </div>
+
+        </form>
+    </div>
+    <script>
+        // Auto-focus logic for OTP fields
+        const otpFields = document.querySelectorAll('.otp-field');
+        otpFields.forEach((field, index) => {
+            field.addEventListener('input', function() {
+                if (field.value.length === 1 && index < otpFields.length - 1) {
+                    otpFields[index + 1].focus();
+                }
+            });
+            field.addEventListener('keydown', function(e) {
+                if (e.key === 'Backspace' && index > 0 && field.value === '') {
+                    otpFields[index - 1].focus();
+                }
+            });
+        });
+        // Show OTP popup on page load
+        window.onload = function() {
+            document.getElementById('otp-popup').classList.add('active');
+            document.getElementById('otp-overlay').style.display = 'flex';
+        };
+    </script>
+</body>
+</html>

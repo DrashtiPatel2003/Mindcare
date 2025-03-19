@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Mental Health Analysis & Chart Support System</title>
+
+    <style>
+        /* Inbuilt CSS for a Services Page */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f7f7;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        header {
+            background-color: #f8c2d4;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+            font-size: 2.5em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #f86d7a;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Updated Service Cards to be in a Single Row */
+        .service-cards {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            gap: 30px;
+            flex-wrap: nowrap;
+        }
+
+        .card {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #f8c2d4;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            position: relative;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        /* New Image CSS - Images Resize Automatically */
+        .card img {
+            width: 100%;
+            height: auto;
+            max-height: 180px; /* Ensures images don't stretch too much */
+            object-fit: cover; /* Ensures the image fills the area while maintaining aspect ratio */
+            border-radius: 8px;
+        }
+
+        .card h4 {
+            color: #f86d7a;
+            margin-top: 15px;
+        }
+
+        .card p {
+            font-size: 1em;
+            margin-top: 10px;
+            color: #555;
+        }
+
+        .footer-btn {
+            display: block;
+            width: 250px;
+            margin: 30px auto;
+            padding: 15px;
+            background-color: #f86d7a;
+            color: #fff;
+            text-align: center;
+            font-size: 1.2em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .footer-btn:hover {
+            background-color: #f8c2d4;
+            transform: scale(1.05);
+        }
+
+        footer {
+            background-color: #f8c2d4;
+            padding: 15px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .footer-link {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Hover Effects */
+        .hover-info {
+            position: absolute;
+            bottom: 10px;
+            left: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover .hover-info {
+            opacity: 1;
+        }
+
+        /* Responsive styling for smaller screens */
+        @media (max-width: 1024px) {
+            .service-cards {
+                flex-direction: column;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            .card {
+                width: 80%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        Mental Health Analysis & Chart Support System
+    </header>
+
+    <div class="container">
+        <h2>Our Services</h2>
+
+        <p>We provide AI-powered mental health support, therapist booking, and interactive mood tracking to help you manage your well-being.</p>
+
+        <div class="service-cards">
+            <div class="card">
+                <img src="assets/images/concept-of-online-counseling-methods-free-vector.jpg" alt="Therapist Booking">
+                <h4>Therapist Booking</h4>
+                <p>Schedule therapy sessions with certified professionals based on availability. Choose between online or in-person consultations.</p>
+                <div class="hover-info">
+                    <h4>More Details:</h4>
+                    <p>View therapist profiles, check appointment slots, and book a session easily.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="assets/images/2156921.jpeg.jpg" alt="AI Chatbot">
+                <h4>AI Chatbot for Mental Health Support</h4>
+                <p>Our AI-powered chatbot provides instant mental health support, guiding you through coping strategies, self-care, and emotional well-being.</p>
+                <div class="hover-info">
+                    <h4>More Details:</h4>
+                    <p>Chat anytime with our AI assistant to receive mental health tips, relaxation exercises, and guidance tailored to your emotions.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="assets/images/mood-concept-emotions-scale-excellent-good-and-normal-bad-and-awful-tiny-people-leave-feedback-emoji-.jpg" alt="Mood Tracking">
+                <h4>Interactive Mood Tracking</h4>
+                <p>Log your daily emotions using our color-coded calendar and track your mental health progress over time.</p>
+                <div class="hover-info">
+                    <h4>More Details:</h4>
+                    <p>Visualize emotional patterns, analyze trends, and receive mood-based recommendations.</p>
+                </div>
+            </div>
+        </div>
+
+        <button class="footer-btn" onclick="contactUs()">Get in Touch</button>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Mental Health Analysis & Chart Support System. All rights reserved. | <a href="privacy.html" class="footer-link">Privacy Policy</a></p>
+    </footer>
+
+    <script>
+        function contactUs() {
+            window.location.href = "contact.php";
+        }
+    </script>
+
+</body>
+
+</html>

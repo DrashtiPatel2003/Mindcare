@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #ffe6e6, #fff5f5);
+    color: #333;
+    overflow-x: hidden; /* Prevents horizontal scrollbar */
+    transition: transform 0.5s ease-in-out; 
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.left-panel, .right-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.left-panel {
+    background-color: #ffcccc;
+    color: #fff;
+   
+}
+
+.right-panel {
+    background-color: #fff;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form {
+    width: 80%;
+    max-width: 400px;
+}
+
+input, button, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #ff6666;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.error {
+    font-size: 12px;
+    color: red;
+    margin-top: -8px;
+    margin-bottom: 8px;
+}
+/* Add the fade-out effect to the body */
+body.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease-out; /* Fades out the page over 0.5 seconds */
+}
+/* Initial setup to hide the body with sliding effect */
+
+/* Sliding out to the left */
+body.slide-out {
+    transform: translateX(-100%);
+}
+
+/* Sliding in from the right */
+body.slide-in {
+    transform: translateX(100%);
+}
+#response-message {
+    padding: 15px;
+    margin: 10px 0;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 5px;
+    display: none; /* Initially hidden */
+} 
+
+

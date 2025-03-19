@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Prediction Results</title>
+  <!-- Include Chart.js for chart rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    let ageChartInstance = null;
+    let genderChartInstance = null;
+    let workplaceChartInstance = null;
+
+    // Function to fetch and render the Age Trend chart
+    async function updateAgeChart(age) {
+      const response = await fetch(`http://127.0.0.1:5000/api/age-trend/${age}`);
+      const data = await response.json();
+      const ctx = document.getElementById('ageChart').getContext('2d');
+      
+      // Destroy existing chart if it exists
+      if (ageChartInstance) {
+        ageChartInstance.destroy();
+      }
+      
+      ageChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(data),
+          datasets: [{
+            label: 'Mental Health Cases',
+            data: Object.values(data),
+            backgroundColor: 'blue'
+          }]
+        }
+      });
+    }
+
+    // Function to fetch and render the Gender Trend chart
+    async function updateGenderChart(gender) {
+      console.log("Updating gender chart for:", gender);
+      const response = await fetch(`http://127.0.0.1:5000/api/gender-trend/${gender}`);
+      const data = await response.json();
+      console.log("Gender chart data:", data);
+      
+      const ctx = document.getElementById('genderChart').getContext('2d');
+      
+      // Destroy existing chart if it exists
+      if (genderChartInstance) {
+        genderChartInstance.destroy();
+      }
+      
+      // If data is empty, provide a fallback message
+      if (Object.keys(data).length === 0) {
+        ctx.font = "16px Arial";
+        ctx.fillText("No data available", 10, 50);
+        return;
+      }
+      
+      genderChartInstance = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: Object.keys(data),
+          datasets: [{
+            data: Object.values(data),
+            backgroundColor: ['red', 'green']
+          }]
+        }
+      });
+    }
+
+    // Function to fetch and render the Workplace Trends chart
+    function fetchWorkplaceTrends() {
+      let selectedSizes = [];
+      document.querySelectorAll('input[name="no_employees"]:checked').forEach((el) => {
+          selectedSizes.push(el.value);
+      });
+      
+      let remoteWork = document.querySelector('input[name="remote_work"]:checked') ? 1 : 0;
+
+      fetch(`http://127.0.0.1:5000/api/workplace_trends?company_size=${selectedSizes.join(",")}&remote_work=${remoteWork}`)
+          .then(response => response.json())
+          .then(data => {
+              let ctx = document.getElementById('workplaceChart').getContext('2d');
+              if (workplaceChartInstance) {
+                  workplaceChartInstance.destroy();
+              }
+              workplaceChartInstance = new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                      labels: data.categories,
+                      datasets: [
+                          { label: "Treatment Yes", data: data.yes_treatment, backgroundColor: "green" },
+                          { label: "Treatment No", data: data.no_treatment, backgroundColor: "red" }
+                      ]
+                  },
+                  options: { responsive: true }
+              });
+          })
+          .catch(error => console.error('Error fetching workplace trends:', error));
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      console.log("Fetching prediction...");
+
+      // Fetch prediction data
+      fetch("http://127.0.0.1:5000/predict")
+        .then(response => {
+          console.log("Response Status:", response.status);
+          return response.json();
+        })
+        .then(data => {
+          console.log("Prediction Response:", data);
+          if (data.error) {
+            document.getElementById("error").textContent = data.error;
+            document.getElementById("prediction").textContent = "";
+            document.getElementById("probability").textContent = "";
+          } else {
+            document.getElementById("prediction").textContent = data.prediction;
+            document.getElementById("probability").textContent = "Confidence: " + data.probability + "%";
+            document.getElementById("error").textContent = "";
+          }
+        })
+        .catch(error => {
+          console.error("Fetch Error:", error);
+          document.getElementById("error").textContent = "Error fetching prediction.";
+        });
+
+      // Load default charts
+      updateAgeChart(30);
+      updateGenderChart("Male");
+      fetchWorkplaceTrends();
+    });
+    
+  </script>
+</head>
+<body>
+  <style>
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #ffeef5; /* Soft pastel pink */
+    color: #5a5a5a;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Main container */
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Ensures content doesn't overflow */
+}
+
+/* Headers */
+h1 {
+    color: #d46aa0;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #c94b8c;
+    border-bottom: 2px solid #f8a1c4;
+    display: inline-block;
+    padding-bottom: 5px;
+    margin: 30px 0 15px;
+}
+
+/* Error message */
+#error {
+    font-weight: bold;
+    color: red;
+}
+
+/* Prediction Box */
+.prediction-box {
+    background: #fff0f6;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+#prediction {
+    font-weight: bold;
+    font-size: 20px;
+    color: #c94b8c;
+}
+
+/* Graph Image */
+.graph-container img {
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Center and Expand Charts */
+.chart-section {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers content */
+    width: 100%;
+    box-sizing: border-box; /* Prevents content from overflowing */
+}
+
+/* Fixing canvas issue */
+canvas {
+    display: block;
+    width: 100% !important; /* Ensures it takes full width */
+    max-width: 100%; /* Prevents overflow */
+    height: auto !important; /* Keeps aspect ratio */
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .chart-section {
+        padding: 15px;
+    }
+
+    canvas {
+        max-width: 100%; /* Ensure canvas stays within the container */
+    }
+}
+
+/* Form Group */
+.form-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.radio-group {
+    display: flex;
+    gap: 10px;
+}
+
+/* Buttons */
+button {
+    background-color: #ff85a2;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 200px;
+}
+
+button:hover {
+    background-color: #e46b89;
+}
+
+/* Slider */
+input[type="range"] {
+    width: 80%;
+    max-width: 400px;
+    margin-top: 10px;
+}
+
+/* Radio Buttons */
+input[type="checkbox"] {
+    transform: scale(1.2);
+    margin-right: 5px;
+    accent-color: #ff85a2;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .form-group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .form-group label, 
+    .form-group select, 
+    .form-group input {
+        width: 100%;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+/* Gender Trend Container - Full Width with Limited Height */
+.gender-chart-container {
+    width: 100%; /* Full width */
+    max-width: 900px; /* Limit max width */
+    max-height: 400px; /* Limit height */
+    overflow: hidden; /* Prevents overflow content */
+    padding: 15px; 
+    margin: 20px auto; /* Center the container */
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers content */
+    justify-content: center; /* Centers content vertically */
+}
+
+/* Gender Chart - Smaller Size */
+#genderChart {
+    width: 80% !important; /* Reduce width */
+    max-width: 350px; /* Limit max width */
+    max-height: 300px !important; /* Set max height */
+    height: auto !important; /* Maintain aspect ratio */
+}
+
+
+</style>
+<div class="container">
+  <h1>Prediction Results</h1>
+
+  <!-- Error message -->
+  <p id="error"></p>
+
+  <!-- Prediction result box -->
+  <div class="prediction-box">
+    <p><b>Prediction:</b> <span id="prediction">Loading...</span></p>
+    <p><b>Probability:</b> <span id="probability"></span></p>
+  </div>
+  <div id="treatment-message" class="prediction-box" style="display: none;">
+    <p id="treatment-text"></p>
+    <button onclick="window.location.href='http://127.0.0.1:5002'">Talk to the Chatbot</button>
+    <button onclick="window.location.href='therapist.php'">Find a Therapist</button>
+  </div>
+  <!-- Analysis Graph -->
+  <h2>Analysis Graph</h2>
+  <div class="graph-container">
+    <img src="http://127.0.0.1:5000/graph" alt="Treatment Distribution Graph">
+  </div>
+
+  <!-- Age Trend Analysis -->
+  <div class="chart-section">
+    <h2>Age Trend Analysis</h2>
+    <input type="range" id="age-slider" min="18" max="60" value="30" oninput="updateAgeChart(this.value)">
+    <canvas id="ageChart"></canvas>
+  </div>
+
+  <!-- Gender Trend Analysis -->
+  <div class="chart-section gender-chart-container">
+    <h2>Gender Trend Analysis</h2>
+    <select id="gender-filter" onchange="updateGenderChart(this.value)">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+    </select>
+    <canvas id="genderChart"></canvas>
+</div>
+
+  <!-- Workplace Trends Analysis -->
+
+    <div class="chart-section">
+      <h2>Workplace Trends Analysis</h2>
+    
+      <div class="form-group">
+        <label for="remote-work">Remote Work:</label>
+        <input type="checkbox" id="remote-work" name="remote_work" value="1">
+      </div>
+    
+    <button onclick="fetchWorkplaceTrends()">Update Graph</button>
+    <canvas id="workplaceChart"></canvas>
+  </div>
+</div>
+</div> <!-- End of container -->
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    fetch("http://127.0.0.1:5000/predict")
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          document.getElementById("error").textContent = data.error;
+          document.getElementById("prediction").textContent = "";
+          document.getElementById("probability").textContent = "";
+        } else {
+          document.getElementById("prediction").textContent = data.prediction;
+          document.getElementById("probability").textContent = "Confidence: " + data.probability + "%";
+
+          let treatmentMessage = document.getElementById("treatment-message");
+          let treatmentText = document.getElementById("treatment-text");
+
+          // Show message based on treatment prediction
+          if (data.prediction.toLowerCase() === "treatment recommended") {
+            treatmentText.innerHTML = "If you want to talk to someone immediately, here is the chatbot. If you prefer a professional, here are some therapists.";
+          } else {
+            treatmentText.innerHTML = "If you still want to talk about something, here is a chatbot and a list of therapists.";
+          }
+          treatmentMessage.style.display = "block";
+        }
+      })
+      .catch(error => {
+        console.error("Fetch Error:", error);
+        document.getElementById("error").textContent = "Error fetching prediction.";
+      });
+  });
+</script>
+</body>
+</html>

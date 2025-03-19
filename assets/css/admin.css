@@ -1,0 +1,165 @@
+/* General Body and Page Setup */
+body {
+    font-family: Arial, sans-serif; /* Clean and readable font */
+    background-color: #fffaf5; /* Light pastel pink background */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header for the Admin Panel */
+header {
+    background-color: #ffe6f0; /* Soft pastel pink */
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+/* Title styling for the page */
+header h1 {
+    font-size: 28px;
+    color: #5a5a5a; /* Neutral grey text */
+    margin: 0;
+}
+
+/* Main content area */
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Distribute space between items */
+    padding: 20px;
+    gap: 20px;
+    background-color: #fff; /* White main area for contrast */
+}
+
+/* Layout for the dashboard content */
+.dashboard-container {
+    width: 100%;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 20px; /* Space between grid items */
+    margin-top: 20px;
+}
+
+/* Individual dashboard cards */
+.dashboard-card {
+    background-color: #ffe6f0; /* Pastel pink for cards */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+    cursor: pointer; /* Change cursor to pointer to indicate interactivity */
+}
+
+.dashboard-card:hover {
+    transform: translateY(-10px); /* Lift the card on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Deepen shadow on hover */
+}
+
+/* Hover effect for links in cards */
+.dashboard-card a {
+    text-decoration: none;
+    color: #ff99c8; /* Bright pastel pink */
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.dashboard-card a:hover {
+    color: #cc6699; /* Darker pastel pink for hover effect */
+    text-decoration: underline;
+}
+
+/* Admin Sidebar */
+.sidebar {
+    background-color: #fffaf5; /* Very light pastel pink */
+    width: 250px; /* Fixed width for the sidebar */
+    height: 100vh; /* Full height of the page */
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar links */
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 15px 0;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #5a5a5a; /* Neutral grey text */
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+    color: #ff99c8; /* Pastel pink for hover effect */
+    transform: translateX(5px); /* Slight shift on hover */
+}
+
+/* Main Content Area (adjusted to fit beside the sidebar) */
+.main-content {
+    margin-left: 270px; /* Offset to create space for sidebar */
+    padding: 30px;
+    background-color: #fff; /* White content background */
+    flex-grow: 1; /* Allow the main content to grow */
+}
+
+/* Footer for Admin Panel */
+footer {
+    background-color: #ffe6f0; /* Matching pastel pink */
+    text-align: center;
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    color: #5a5a5a; /* Neutral grey text */
+    font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 10px;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 10px;
+    }
+
+    .dashboard-container {
+        grid-template-columns: 1fr 1fr; /* Two-column layout on medium screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-container {
+        grid-template-columns: 1fr; /* Single column layout on smaller screens */
+    }
+
+    .sidebar {
+        display: none; /* Hide sidebar on very small screens */
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 10px;
+    }
+}

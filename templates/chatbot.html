@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Chatbot</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f4; }
+        .chat-container { width: 50%; margin: auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        .chat-box { height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; background: #fff; }
+        .input-box { width: 80%; padding: 10px; }
+        .send-btn { padding: 10px 15px; background: blue; color: white; border: none; cursor: pointer; }
+    </style>
+    <script>
+        async function sendMessage() {
+            const userInput = document.getElementById("userInput").value;
+            if (!userInput) return;
+
+            document.getElementById("chat-box").innerHTML += <p><b>You:</b> ${userInput}</p>;
+
+            const response = await fetch('/chatbot', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: userInput })
+            });
+
+            const data = await response.json();
+            document.getElementById("chat-box").innerHTML += <p><b>Chatbot:</b> ${data.response}</p>;
+            document.getElementById("userInput").value = "";
+        }
+    </script>
+</head>
+<body>
+    <div class="chat-container">
+        <h2>Mental Health Chatbot</h2>
+        <div class="chat-box" id="chat-box"></div>
+        <input type="text" id="userInput" class="input-box" placeholder="Type a message...">
+        <button onclick="sendMessage()" class="send-btn">Send</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motivation Videos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffe6f0;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .card {
+            background-color: #fff;
+            border: 1px solid #ff99cc;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+            background-color: #ffe6fa; /* Pastel pink color */
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .card img:hover {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 15px;
+        }
+
+        .card-content h3 {
+            font-size: 20px;
+            color: #ff99cc;
+            margin: 10px 0;
+            transition: color 0.3s ease;
+        }
+
+        .card-content h3:hover {
+            color: #ff66b2;
+        }
+
+        .card-content a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #ff99cc;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-content a:hover {
+            background-color: #ff66b2;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-button {
+            display: inline-block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #ff99cc;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #ff66b2;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #ff99cc;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Stay Inspired – Watch Motivational Videos and Power Up Your Day!</h1>
+    <div class="container">
+        <div class="card">
+            <img src="assets/images/motivation1.jpeg" alt="Motivational 1">
+            <div class="card-content">
+                <h3>Motivational Video 1</h3>
+                <a href="https://www.youtube.com/watch?v=Tuw8hxrFBH8" target="_blank">Watch Now</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="assets/images/motivation2.jpg" alt="Motivational 2">
+            <div class="card-content">
+                <h3>Motivational Video 2</h3>
+                <a href="https://www.youtube.com/watch?v=eBSeCp__xhI" target="_blank">Watch Now</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="assets/images/motivation3.jpg" alt="Motivational 3">
+            <div class="card-content">
+                <h3>Motivational Video 3</h3>
+                <a href="https://www.youtube.com/watch?v=PGUdWfB8nLg" target="_blank">Watch Now</a>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="back-button" onclick="history.back();">Go Back</a>
+</body>
+</html>

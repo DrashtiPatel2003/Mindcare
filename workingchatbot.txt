@@ -1,0 +1,81 @@
+from flask import Flask
+from flask_cors import CORS
+import os
+import gradio as gr
+
+from langchain_groq import ChatGroq
+from langchain.embeddings import HuggingFaceBgeEmbeddings
+from langchain.document_loaders import PyPDFLoader, DirectoryLoader
+from langchain.vectorstores import Chroma
+from langchain.chains import RetrievalQA
+from langchain.prompts import PromptTemplate
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+app = Flask(__name__)
+CORS(app)
+print("Initializing Chatbot...")
+
+# Initialize LLM using ChatGroq
+def initialize_llm():
+    llm = ChatGroq(
+        temperature=0,
+        groq_api_key="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",
+        model_name="llama-3.3-70b-versatile"
+    )
+    return llm
+
+# Create or load the vector database (assumes PDFs and DB folder are inside the 'chatbot' folder)
+def create_vector_db():
+    # PDFs are stored in the "chatbot" folder
+    loader = DirectoryLoader("chatbot", glob="*.pdf", loader_cls=PyPDFLoader)
+    documents = loader.load()
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+    texts = text_splitter.split_documents(documents)
+    embeddings = HuggingFaceBgeEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+    # Save Chroma DB inside "chatbot/chroma_db"
+    vector_db = Chroma.from_documents(texts, embeddings, persist_directory="chatbot/chroma_db")
+    vector_db.persist()
+    print("ChromaDB created and data saved")
+    return vector_db
+
+# Set up the QA chain using the vector DB and LLM
+def setup_qa_chain(vector_db, llm):
+    retriever = vector_db.as_retriever()
+    prompt_templates = """You are a compassionate mental health chatbot. Respond thoughtfully to:
+    {context}
+    User: {question}
+    Chatbot: """
+    PROMPT = PromptTemplate(template=prompt_templates, input_variables=['context', 'question'])
+    qa_chain = RetrievalQA.from_chain_type(
+        llm=llm,
+        chain_type="stuff",
+        retriever=retriever,
+        chain_type_kwargs={"prompt": PROMPT}
+    )
+    return qa_chain
+
+llm = initialize_llm()
+db_path = "chatbot/chroma_db"
+if not os.path.exists(db_path):
+    vector_db = create_vector_db()
+else:
+    embeddings = HuggingFaceBgeEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+    vector_db = Chroma(persist_directory=db_path, embedding_function=embeddings)
+qa_chain = setup_qa_chain(vector_db, llm)
+
+def chatbot_response(user_input, history=[]):
+    if not user_input.strip():
+        return "Please provide a valid input", history
+    
+    response_dict = qa_chain.invoke(user_input)  # Returns a dictionary
+    response = response_dict.get("result", "I couldn't generate a response.")  # Extracts only the text
+    
+    return response
+# Create Gradio interface inside Blocks (all in one file)
+with gr.Blocks(theme=None) as chatbot_app:
+    gr.Markdown("# 🧠 Mental Health Chatbot 🤖")
+    gr.Markdown("A compassionate chatbot designed to assist with mental well-being. Note: For serious concerns, contact a professional.")
+    
+    chatbot = gr.ChatInterface(fn=chatbot_response, title="Mental Health Chatbot")
+
+chatbot_app.launch(server_name="0.0.0.0", server_port=5001, share=False) 

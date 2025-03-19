@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Mental Health Support</title>
+    <link rel="stylesheet" href="signinsignup.css">
+  
+
+</head>
+<body>
+    <style>
+            /* Container for the icon */
+    .info-icon {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+  /* Icon image styles */
+  .info-image {
+    width: 40px; /* Adjust the size as needed */
+    height: auto;
+    border-radius: 40%;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Hover effect to slightly enlarge the icon */
+  .info-icon:hover .info-image {
+    transform: scale(1.1);
+  }
+    </style>
+    <div class="container">
+        <div class="left-panel">
+            <h1>Welcome!</h1>
+            <p>Your mental well-being matters. Sign in to continue.</p>
+        </div>
+        <div class="right-panel">
+            <form id="signin-form" action="signin.php" method="POST">
+                <h2>Sign In
+                    <a href="#" class="info-icon" title="Login in">
+                        <img src="../assets/images/login.gif" alt="Information Icon" class="info-image">
+                      </a>
+                </h2>
+                <br>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                <p id="email-error" class="error"></p>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <p id="password-error" class="error"></p>
+
+                <button type="submit">Sign In</button>
+                <p><a href="#" class="info-icon" title="NO Account">
+                    <img src="../assets/images/noacc.png" alt="Information Icon" class="info-image">
+                  </a>  Don't have an account? <a href="signup1.php" style="display: inline-block; padding: 10px 20px; background-color: #ffcccc; color: #fff; text-decoration: none; border-radius: 5px; transition: background-color 0.3s ease;">Sign Up</a>
+                </p>
+                <p><a href="#" class="info-icon" title="Forgot">
+                    <img src="../assets/images/forgot.png" alt="Information Icon" class="info-image">
+                  </a>  Press to reset password  <a href="forgot_password.html" style="display: inline-block; padding: 10px 20px; background-color: #ffcccc; color: #fff; text-decoration: none; border-radius: 5px; transition: background-color 0.3s ease;">Forgot Password</a></p>
+                <p><a href="#" class="info-icon" title="Admin">
+                    <img src="../assets/images/adminimg.png" alt="Information Icon" class="info-image">
+                  </a>   Admin Page       <a href="../admin/index2.php" style="display: inline-block; padding: 10px 20px; background-color: #ffcccc; color: #fff; text-decoration: none; border-radius: 5px; transition: background-color 0.3s ease;">Admin</a></p>
+
+                
+
+      
+            </form>
+        </div>
+    </div>
+    <script src="assets/js/validation.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
