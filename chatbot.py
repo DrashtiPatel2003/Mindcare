@@ -19,7 +19,7 @@ print("Initializing Chatbot...")
 def initialize_llm():
     llm = ChatGroq(
         temperature=0,
-        groq_api_key="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",
+        groq_api_key="api",
         model_name="llama-3.3-70b-versatile"
     )
     return llm
