@@ -1,6 +1,5 @@
 # **MindCare - Mental Health Analysis & Support System**
 
-![MindCare Banner](https://via.placeholder.com/1200x400.png?text=MindCare+Mental+Health+System)
 
 ## 🌿 Overview
 MindCare is a web-based platform designed to help users track their mental health through daily mood logging, AI-driven insights, and therapist booking. With an intuitive pastel pink and white UI, it ensures a calming and user-friendly experience.
