@@ -48,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'anandpatel99044@gmail.com';
-        $mail->Password   = 'dsyn iuen xwzz yfxs';
+        $mail->Username   = 'your email';
+        $mail->Password   = 'your key';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
         $mail->setFrom('your_email@example.com', 'MindCare');
