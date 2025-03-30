@@ -36,7 +36,7 @@ MindCare is an AI-powered mental health analysis and support system designed to 
 
 ### 1️⃣ Clone the repository  
 ```bash
-git clone https://github.com/yourusername/mindcare.git
+git clone https://github.com/anand25116/mindcare.git
 cd mindcare
 ```  
 
